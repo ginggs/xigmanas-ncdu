@@ -24,7 +24,7 @@ esac ; exit 0; }
 #----------------------- Check for full path ------------------------------------------------------------
 if [ ! `echo $0 |cut -c1-5` = "/mnt/" ]; then _msg 4; fi
 cd $DIR;
-#----------------------- Download and decompress ncdu files if don't exist ------------------------------
+#----------------------- Download and decompress ncdu files if needed -----------------------------------
 FILE=${NCDUFILE}
 if [ ! -d ${DIR}/usr/local/bin ]; then
   if [ ! -e ${DIR}/${FILE} ]; then fetch ${URL}/${FILE} || _msg 1; fi
@@ -37,8 +37,8 @@ for i in `ls $DIR/usr/local/bin/`
   do if [ ! -e /usr/local/bin/${i} ]; then ln -s ${DIR}/usr/local/bin/$i /usr/local/bin; fi; done
 _msg 3 ; exit 0;
 #----------------------- End of Script ------------------------------------------------------------------
-# 1. Keep this script in his own directory.
+# 1. Keep this script in its own directory.
 # 2. chmod the script u+x,
 # 3. Always run this script using the full path: /mnt/.../directory/ncdu.sh
-# 4. You can add this script to WebGUI: Advanced: Commands as Post command (see 3).
+# 4. You can add this script to WebGUI: Advanced: Command Scripts as a PostInit command (see 3).
 # 5. To run Ncurses Disk Usage from shell type 'ncdu'.
