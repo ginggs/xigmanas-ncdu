@@ -1,2 +1,2 @@
-# nas4free-ncdu
-Install NCurses Disk Usage (ncdu) on NAS4Free (embedded version)
+# xigmanas-ncdu
+Install NCurses Disk Usage (ncdu) on XigmaNAS4 (embedded version)
