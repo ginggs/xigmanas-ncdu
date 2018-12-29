@@ -2,6 +2,7 @@
 # filename:     ncdu.sh
 # author:       Graham Inggs
 # date:         2018-05-24 ; Initial release for NAS4Free 11.1.0.4
+# date:         2018-12-29 ; Updated for XigmaNAS 11.2.0.4
 # purpose:      Install NCurses Disk Usage (ncdu) on NAS4Free (embedded version).
 # Note:         Check the end of the page.
 #
@@ -12,7 +13,7 @@ RELEASE=`uname -r | cut -d- -f1`
 REL_MAJOR=`echo $RELEASE | cut -d. -f1`
 REL_MINOR=`echo $RELEASE | cut -d. -f2`
 URL="http://distcache.freebsd.org/FreeBSD:${REL_MAJOR}:${PLATFORM}/release_${REL_MINOR}/All"
-NCDUFILE="ncdu-1.12.txz"
+NCDUFILE="ncdu-1.13.txz"
 #----------------------- Set Errors ---------------------------------------------------------------------
 _msg() { case $@ in
   0) echo "The script will exit now."; exit 0 ;;
