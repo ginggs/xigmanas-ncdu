@@ -3,6 +3,7 @@
 # author:       Graham Inggs
 # date:         2018-05-24 ; Initial release for NAS4Free 11.1.0.4
 # date:         2018-12-29 ; Updated for XigmaNAS 11.2.0.4
+# date:         2019-10-29 ; Updated for XigmaNAS 12.0.0.4 (no changes)
 # purpose:      Install NCurses Disk Usage (ncdu) on XigmaNAS (embedded version).
 # Note:         Check the end of the page.
 #
