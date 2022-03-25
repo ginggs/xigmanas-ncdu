@@ -6,17 +6,14 @@
 # date:         2019-10-29 ; Updated for XigmaNAS 12.0.0.4 (no changes)
 # date:         2019-11-25 ; Updated for XigmaNAS 12.1.0.4
 # date:         2021-04-03 ; Updated for XigmaNAS 12.2.0.4
+# author:       nivigor
+# date:         2022-03-25 ; Updated for XigmaNAS 12.*; not need exact file names
 # purpose:      Install NCurses Disk Usage (ncdu) on XigmaNAS (embedded version).
 # Note:         Check the end of the page.
 #
 #----------------------- Set variables ------------------------------------------------------------------
 DIR=`dirname $0`;
-PLATFORM=`uname -m`
-RELEASE=`uname -r | cut -d- -f1`
-REL_MAJOR=`echo $RELEASE | cut -d. -f1`
-REL_MINOR=`echo $RELEASE | cut -d. -f2`
-URL="http://distcache.freebsd.org/FreeBSD:${REL_MAJOR}:${PLATFORM}/release_${REL_MINOR}/All"
-NCDUFILE="ncdu-1.15.1.txz"
+NCDUFILE="ncdu-*"
 #----------------------- Set Errors ---------------------------------------------------------------------
 _msg() { case $@ in
   0) echo "The script will exit now."; exit 0 ;;
@@ -31,13 +28,14 @@ cd $DIR;
 #----------------------- Download and decompress ncdu files if needed -----------------------------------
 FILE=${NCDUFILE}
 if [ ! -d ${DIR}/usr/local/bin ]; then
-  if [ ! -e ${DIR}/${FILE} ]; then fetch ${URL}/${FILE} || _msg 1; fi
-  if [ -f ${DIR}/${FILE} ]; then tar xzf ${DIR}/${FILE} || _msg 2;
+  if [ ! -e ${DIR}/${FILE} ]; then pkg fetch -y ncdu;
+    cp `find /var/cache/pkg/ -name ${FILE} -not -name "*~*"` ${DIR} || _msg 1; fi
+  if [ -f ${DIR}/${FILE} ]; then tar xzf ${DIR}/${FILE} || _msg 2; rm /var/cache/pkg/*;
     rm ${DIR}/+*; rm -R ${DIR}/usr/local/man; rm -R ${DIR}/usr/local/share; fi
   if [ ! -d ${DIR}/usr/local/bin ] ; then _msg 4; fi
 fi
 #----------------------- Create wrapper script to enable experimental color support ---------------------
-if [ ! -e ${DIR}//usr/local/bin/ncdu.real ]; then
+if [ ! -e ${DIR}/usr/local/bin/ncdu.real ]; then
   mv ${DIR}/usr/local/bin/ncdu ${DIR}/usr/local/bin/ncdu.real
   cat <<'EOF' >${DIR}/usr/local/bin/ncdu
 #!/bin/sh
