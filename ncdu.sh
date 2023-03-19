@@ -31,15 +31,6 @@ if [ ! -d ${DIR}/usr/local/bin ]; then
     rm ${DIR}/+*; rm -R ${DIR}/usr/local/man; rm -R ${DIR}/usr/local/share; fi
   if [ ! -d ${DIR}/usr/local/bin ] ; then _msg 4; fi
 fi
-#----------------------- Create wrapper script to enable experimental color support ---------------------
-if [ ! -e ${DIR}//usr/local/bin/ncdu.real ]; then
-  mv ${DIR}/usr/local/bin/ncdu ${DIR}/usr/local/bin/ncdu.real
-  cat <<'EOF' >${DIR}/usr/local/bin/ncdu
-#!/bin/sh
-/usr/local/bin/ncdu.real --color dark "$@"
-EOF
-  chmod +x ${DIR}/usr/local/bin/ncdu
-fi
 #----------------------- Create symlinks ----------------------------------------------------------------
 for i in `ls $DIR/usr/local/bin/`
   do if [ ! -e /usr/local/bin/${i} ]; then ln -s ${DIR}/usr/local/bin/$i /usr/local/bin; fi; done
